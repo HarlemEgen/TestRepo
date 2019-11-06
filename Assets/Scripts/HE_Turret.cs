@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class HE_Turret : MonoBehaviour
 {
+    public GameObject bulletPrefab;
+    public GameObject FirePoint;
+    public GameObject missilePrefab;
     void Update()
     {
 
@@ -22,6 +25,17 @@ public class HE_Turret : MonoBehaviour
             transform.LookAt(new Vector3(hit.point.x, 0, hit.point.z));
         }
         //SHOOTS WHEN MOUSE BUTTON IS CLICKED
+        //Check mouse button is clicked
+        //Spawn Bullet
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(bulletPrefab, FirePoint.transform.position, transform.rotation);
 
+            //Move Bullet
+            //Bullet.rigidbody.AddForce(direction)
+            GameObject newBullet = Instantiate(bulletPrefab, FirePoint.transform.position, transform.rotation);
+
+            newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.forward * 9000f);
+        }
     }
 }

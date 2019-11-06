@@ -16,10 +16,25 @@ public class HE_Minion : MonoBehaviour
     }
     void Update()
     {
+        if(turret != null)
+        {
+            transform.LookAt(turret.transform.position);
+        }
         //Look at turret
         transform.LookAt(turret.transform.position);
 
         //MOVE
         transform.position += transform.forward * Time.deltaTime * speed;
+    }
+
+
+    //Kills Turret on collision
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Turret"))
+        {
+            Destroy(collision.gameObject); //Destroys Turret
+            Destroy(gameObject); //Destorys Minion
+        }
     }
 }
